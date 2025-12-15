@@ -74,6 +74,11 @@ export const getTools = async (toolsState: ToolsState) => {
       type: "mcp",
       server_label: mcpConfig.server_label,
       server_url: mcpConfig.server_url,
+      // authorization: `Bearer ${process.env.TRUSPEED_MCP_KEY}`,
+      headers: {
+        Authorization: `Bearer ${process.env.TRUSPEED_MCP_KEY}`,
+        "mcp-protocol-version": "2025-06-18",
+      },
     };
     if (mcpConfig.skip_approval) {
       mcpTool.require_approval = "never";
@@ -92,6 +97,8 @@ export const getTools = async (toolsState: ToolsState) => {
     const { accessToken } = await getFreshAccessToken();
     tools.push(...getGoogleConnectorTools(accessToken!));
   }
+
+  console.log("Tools", tools);
 
   return tools;
 };

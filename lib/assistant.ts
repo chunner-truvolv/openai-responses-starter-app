@@ -207,6 +207,7 @@ export const processMessages = async () => {
 
         case "response.output_item.added": {
           const { item } = data || {};
+          console.log("Output item added:", item);
           // New item coming in
           if (!item || !item.type) {
             break;
